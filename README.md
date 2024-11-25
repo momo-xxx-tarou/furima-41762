@@ -35,7 +35,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :orders
+- has_one :order
 
 ## ShippingAddresses テーブル
 
@@ -44,15 +44,15 @@
 | post_code     | string     | null: false |
 | prefecture_id | integer    | null: false |
 | city          | string     | null: false |
-| addresses     | string     | null: false |
-| Building name | string     |             |
+| address       | string     | null: false |
+| Building_name | string     |             |
 | phone_number  | string     | null: false |
-| order         | references | ShippingAddresses foreign_key: true |
+| order         | references | foreign_key: true |
 
 
 ### Association
 
-- belongs_to :user
+- belongs_to :order
 
 ##  ordersテーブル
 
@@ -64,3 +64,5 @@
 ### Association
 
 - belongs_to :user
+- belongs_to :item
+- has_one :shipping_address
