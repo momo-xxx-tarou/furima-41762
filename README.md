@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :order
+- has_many :orders
 
 
 ## items テーブル
@@ -35,18 +35,19 @@
 ### Association
 
 - belongs_to :user
-- has_one :order
+- has_one :orders
 
 ## ShippingAddresses テーブル
 
 | Column        | Type       | Options     |
 | ------------- | ---------- | ----------- |
-| post_code     | integer    | null: false |
+| post_code     | string     | null: false |
 | prefecture_id | integer    | null: false |
 | city          | string     | null: false |
 | addresses     | string     | null: false |
+| Building name | string     |             |
 | phone_number  | string     | null: false |
-| order         | references | ShippingAddresses |
+| order         | references | ShippingAddresses foreign_key: true |
 
 
 ### Association
