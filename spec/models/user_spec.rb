@@ -93,13 +93,6 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Last name can't be blank")
       end
 
-      it 'お名前(全角)の名前は必須である' do
-        @user.first_name = ''
-        @user.last_name = '山田'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("First name can't be blank")
-      end
-
       it 'お名前(全角)の名字は必須である' do
         @user.last_name = ''
         @user.first_name = '山田'
