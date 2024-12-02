@@ -12,9 +12,18 @@
 
 ActiveRecord::Schema[7.0].define(version: 2024_11_25_101802) do
   create_table "items", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name"
+    t.string "product_name", null: false
+    t.text "info", null: false
+    t.integer "category", null: false
+    t.integer "sales_status", null: false
+    t.integer "shipping_cost", null: false
+    t.integer "prefecture", null: false
+    t.integer "shipping", null: false
+    t.integer "prise", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
