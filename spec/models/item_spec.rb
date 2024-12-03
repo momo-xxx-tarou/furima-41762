@@ -3,12 +3,21 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   describe '商品の出品' do
     before do
-      @item = FactoryBot.build(:item)
+      @user = FactoryBot.create(:user) # Userを先に作成
+      @item = FactoryBot.build(:item, user: @user) # Userと紐づけてItemを作成
     end
 
     context '出品できる場合' do
       it '全ての項目が正しく入力されていれば出品できる' do
         expect(@item).to be_valid
+      end
+    end
+
+    context '出品できない場合' do
+      it 'ユーザーが紐づいていなければ出品できない' do
+        @item.user = nil # ユーザーを紐づけない状態に変更
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist') # Userが必須であることのエラーメッセージを確認
       end
     end
 
@@ -32,31 +41,31 @@ RSpec.describe Item, type: :model do
       end
 
       it 'カテゴリーの情報が空では出品できない' do
-        @item.category_id = nil
+        @item.category_id = '---'
         @item.valid?
         expect(@item.errors.full_messages).to include('Category を選択してください')
       end
 
       it '商品の状態が空では出品できない' do
-        @item.sales_status_id = nil
+        @item.sales_status_id = '---'
         @item.valid?
         expect(@item.errors.full_messages).to include('Sales status を選択してください')
       end
 
       it '配送料の負担が空では出品できない' do
-        @item.shipping_cost_id = nil
+        @item.shipping_cost_id = '---'
         @item.valid?
         expect(@item.errors.full_messages).to include('Shipping cost を選択してください')
       end
 
       it '発送元の地域が空では出品できない' do
-        @item.prefecture_id = nil
+        @item.prefecture_id = '---'
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture を選択してください')
       end
 
       it '発送までの日数が空では出品できない' do
-        @item.shipping_id = nil
+        @item.shipping_id = '---'
         @item.valid?
         expect(@item.errors.full_messages).to include('Shipping を選択してください')
       end
