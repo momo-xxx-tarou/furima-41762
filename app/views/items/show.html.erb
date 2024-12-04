@@ -9,9 +9,9 @@
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
       <%# 商品が売れている場合は、sold outを表示しましょう %>
-      <div class="sold-out">
+      <%# <div class="sold-out">
         <span>Sold Out!!</span>
-      </div>
+      </div> %>
       <%# //商品が売れている場合は、sold outを表示しましょう %>
     </div>
     <div class="item-price-box">
@@ -27,7 +27,6 @@
     <% if user_signed_in? && current_user.id == @item.user_id %>
     <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
     <p class="or-text">or</p>
-    <% elsif user_signed_in? && current_user.id != @item.user_id%>
     <%= link_to "削除", "#", data: {turbo_method: :delete}, class:"item-destroy" %>
     <% end %>
 
