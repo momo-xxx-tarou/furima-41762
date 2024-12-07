@@ -1,6 +1,7 @@
 class OrderAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :post_code, :prefecture_id, :city, :address, :building_name, :phone_number
+  attr_accessor :post_code, :prefecture_id, :city, :address, :building_name, :phone_number,
+                :user_id, :item_id, :token # tokenを追加
 
   with_options presence: true do
     validates :user_id
@@ -10,13 +11,11 @@ class OrderAddress
     validates :city
     validates :address
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'は10桁以上11桁以内の半角数値で入力してください' }
+    validates :token, presence: true # tokenのバリデーションを追加
   end
 
   def save
-    # 購入記録を保存し、変数orderに代入する
     order = Order.create(user_id: user_id, item_id: item_id)
-    # 住所を保存する
-    # order_idには、変数orderのidと指定する
     ShippingAddress.create(
       post_code: post_code,
       prefecture_id: prefecture_id,

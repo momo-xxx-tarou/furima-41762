@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_action :move_to_index      # アクセス制限
 
   def index
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_address = OrderAddress.new
   end
 
@@ -14,6 +15,7 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
@@ -30,7 +32,8 @@ class OrdersController < ApplicationController
       :phone_number
     ).merge(
       user_id: current_user.id,
-      item_id: params[:item_id]
+      item_id: params[:item_id],
+      token: params[:token]
     )
   end
 
