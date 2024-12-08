@@ -24,7 +24,7 @@
       </span>
     </div>
     <% if user_signed_in? %>
-      <% if current_user.id == @item.user_id %>
+      <% if current_user.id == @item.user_id && @item.order.nil? %>
         <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
         <%= link_to "削除", item_path(@item), data: {turbo_method: :delete}, class:"item-destroy" %>
@@ -92,7 +92,7 @@
   </div>
   <div class="links">
     <a href="#" class="change-item-btn">
-      ＜ 前の商品
+      ��� 前の商品
     </a>
     <a href="#" class="change-item-btn">
       後ろの商品 ＞
